@@ -6,7 +6,7 @@ from googleapiclient.discovery import build
 
 class Channel:
     """Класс для ютуб-канала"""
-    api_key: str = os.getenv('YT_API_KEY')
+    api_key: str = "AIzaSyDrbXQittDoxQmj5ySEnml7BLs3O4gzY-8"
 
     def __init__(self, channel_id: str) -> None:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
