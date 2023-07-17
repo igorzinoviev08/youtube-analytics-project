@@ -2,8 +2,10 @@ import json
 import os
 
 from googleapiclient.discovery import build
+from functools import total_ordering
 
 
+@total_ordering
 class Channel:
     """Класс для ютуб-канала"""
     api_key: str = os.getenv("YT_API_KEY")
@@ -20,6 +22,21 @@ class Channel:
         self.subscriber_count = int(self.youtube['items'][0]['statistics']['subscriberCount'])
         self.video_count = int(self.youtube['items'][0]['statistics']['videoCount'])
         self.view_count = int(self.youtube['items'][0]['statistics']['viewCount'])
+
+    def __str__(self):
+        return f'{self.title} ({self.url})'
+
+    def __add__(self, other):
+        return self.subscriber_count + other.subscriber_count
+
+    def __sub__(self, other):
+        return self.subscriber_count - other.subscriber_count
+
+    def __eq__(self, other):
+        return self.subscriber_count == other.subscriber_count
+
+    def __lt__(self, other):
+        return self.subscriber_count < other.subscriber_count
 
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
